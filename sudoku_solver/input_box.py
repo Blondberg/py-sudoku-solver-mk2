@@ -1,7 +1,7 @@
 import pygame
 
 class InputBox:
-    def __init__(self, x_pos, y_pos, width, height, number=0):
+    def __init__(self, x_pos, y_pos, width, height, number=''):
         self.rect = pygame.Rect(x_pos, y_pos, width, height)
         self.number = number
         self.active = False
@@ -33,7 +33,8 @@ class InputBox:
 
 
     def draw(self, screen):
-        screen.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
+        if self.number != '0':
+            screen.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
         pygame.draw.rect(screen,self.color, self.rect, 2)
 
 
