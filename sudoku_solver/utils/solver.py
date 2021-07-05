@@ -4,6 +4,9 @@ class Solver:
     def __init__(self):
         self.board = [[0 for i in range(9)] for j in range(9)]
 
+    # OBS!
+    # This function never reaches a return statement if the last
+    # number is already set
     def solve(self, row=0, col=0):
         """Recursive function that solves any sudoku puzzle using recursion
 
@@ -28,6 +31,28 @@ class Solver:
         elif not(next_row == -1 and next_col == -1):
             return self.solve(next_row, next_col)
 
+    def solve2(self, row=0, col=0):
+
+
+        # When the end is reached
+        if row>=9:
+            return True
+
+        next_row, next_col = self.next_coord(row, col)
+
+        # A value needs to be set
+        if self.board[row][col] == 0:
+            for number in range(1, 10): # Loop through all possible numbers
+                if self.is_valid(row, col, number):
+                    self.board[row][col] = number
+                    if self.solve2(next_row, next_col):
+                        return True
+                self.board[row][col] = 0
+            return False
+
+        return self.solve2(next_row, next_col)
+
+
     def next_coord(self, row, col):
         """Returns the next coordinate to check
 
@@ -44,9 +69,6 @@ class Solver:
         if next_col >= 9:
             next_col = 0
             next_row += 1
-
-        if next_row >= 9:
-            return -1, -1
 
         return next_row, next_col
 

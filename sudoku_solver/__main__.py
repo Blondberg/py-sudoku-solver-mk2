@@ -28,6 +28,7 @@ def run():
 
     RUNNING = True
 
+
     while RUNNING:
         for event in pygame.event.get():
             for row in input_board:
@@ -39,7 +40,7 @@ def run():
                 elif event.key == pygame.K_RETURN:
                     convertions.board_to_numeric(input_board, solver.get_board())
                     solver.print_board()
-                    solver.solve()
+                    solver.solve2()
                     solver.print_board()
                     convertions.numeric_to_board(solver.get_board(), input_board)
 
