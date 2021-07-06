@@ -2,8 +2,6 @@ import pygame
 from pygame.locals import K_ESCAPE, KEYDOWN
 
 from utils.solver import Solver
-import utils.convertions as convertions
-
 from board import Board
 
 def run():

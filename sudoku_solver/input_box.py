@@ -46,6 +46,12 @@ class InputBox:
     def get_text(self):
         return self.number
 
+    def set_active(self, active):
+        self.active = active
+        self.color = self.color_active if active else self.color_inactive
+
+
+
 
 
 

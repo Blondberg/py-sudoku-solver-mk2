@@ -1,3 +1,4 @@
+from pygame.constants import K_LEFT, K_RIGHT
 from input_box import InputBox
 import pygame
 
@@ -7,6 +8,9 @@ class Board:
         self.COL_COUNT = 9
         self.BOX_WIDTH = 50
         self.BOX_HEIGHT = 50
+
+        self.active_row = 0
+        self.active_col = 0
 
         self.numeric_board = [[0 for i in range(self.COL_COUNT)] for j in range(self.ROW_COUNT)]
 
@@ -49,9 +53,36 @@ class Board:
 
 
     def handle_event(self, event):
-        for row in self.board:
-                for box in row:
+        for row in range(self.ROW_COUNT):
+                for col in range(self.COL_COUNT): # Could do foreach, but need the number of row and col
+                    box =  self.board[row][col]
                     box.handle_event(event)
+
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if box.active:
+                            self.active_row, self.active_col = row, col
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == K_LEFT:
+                if self.active_col > 0:
+                    self.board[self.active_row][self.active_col].set_active(False)
+                    self.active_col -= 1
+                    self.board[self.active_row][self.active_col].set_active(True)
+            if event.key == K_RIGHT:
+                if self.active_col < 8:
+                    self.board[self.active_row][self.active_col].set_active(False)
+                    self.active_col += 1
+                    self.board[self.active_row][self.active_col].set_active(True)
+            if event.key == pygame.K_UP:
+                if self.active_row > 0:
+                    self.board[self.active_row][self.active_col].set_active(False)
+                    self.active_row -= 1
+                    self.board[self.active_row][self.active_col].set_active(True)
+            if event.key == pygame.K_DOWN:
+                if self.active_row < 8:
+                    self.board[self.active_row][self.active_col].set_active(False)
+                    self.active_row += 1
+                    self.board[self.active_row][self.active_col].set_active(True)
 
 
     def get_board(self):
