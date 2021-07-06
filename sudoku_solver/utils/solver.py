@@ -1,76 +1,30 @@
 
 
 class Solver:
-    def __init__(self):
-        self.board = [[0 for i in range(9)] for j in range(9)]
+    def __init__(self, board):
+        self.board = board
 
-    # OBS!
-    # This function never reaches a return statement if the last
-    # number is already set
     def solve(self, row=0, col=0):
-        """Recursive function that solves any sudoku puzzle using recursion
-
-        Args:
-            row (int, optional): Starting row. Defaults to 0.
-            col (int, optional): Starting column. Defaults to 0.
-
-        Returns:
-            func: The solve function, since it uses recursison
-        """
-        next_row, next_col = self.next_coord(row, col)
-        if self.board[row][col] == 0:
-            for number in range(1, 10):  # Loop through all possible numbers
-                if self.is_valid(row, col, number):
-                    self.board[row][col] = number
-                    if next_row == -1 and next_col == -1:
-                        return True
-                    if not self.solve(next_row, next_col):
-                        self.board[row][col] = 0
-                    else:
-                        return True
-        elif not(next_row == -1 and next_col == -1):
-            return self.solve(next_row, next_col)
-
-    def solve2(self, row=0, col=0):
-
+        if col >= 9:
+            col = 0
+            row +=1
 
         # When the end is reached
-        if row>=9:
+        if row >= 9:
             return True
-
-        next_row, next_col = self.next_coord(row, col)
 
         # A value needs to be set
         if self.board[row][col] == 0:
             for number in range(1, 10): # Loop through all possible numbers
                 if self.is_valid(row, col, number):
                     self.board[row][col] = number
-                    if self.solve2(next_row, next_col):
+                    if self.solve(row, col + 1):
                         return True
                 self.board[row][col] = 0
             return False
 
-        return self.solve2(next_row, next_col)
+        return self.solve(row, col + 1)
 
-
-    def next_coord(self, row, col):
-        """Returns the next coordinate to check
-
-        Args:
-            row (int): The last checked row
-            col (int): The last checked column
-
-        Returns:
-            int, int: The next row and col to check
-        """
-        next_row = row
-        next_col = col + 1
-
-        if next_col >= 9:
-            next_col = 0
-            next_row += 1
-
-        return next_row, next_col
 
     def is_valid(self, row, col, number):
         """Check whether a number is valid in it's current spot
@@ -147,15 +101,5 @@ class Solver:
 
         return False
 
-    def print_board(self):
-        print("####")
-        for row in self.board:
-            print(row)
-        print("####")
-
     def get_board(self):
         return self.board
-
-    def clear(self):
-        self.board = [[0 for i in range(9)] for j in range(9)]
-

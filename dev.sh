@@ -9,7 +9,7 @@ setup() {
     echo "Installing necessary dependencies"
     pip install -r requirements.txt
     read -p "Please enter the project name (no spaces, leave empty to not create folder): " PROJECT_NAME
-    if [ $PROJECT_NAME != "" ] 
+    if [ -z $PROJECT_NAME ]
     then
         mkdir $PROJECT_NAME
         touch ./$PROJECT_NAME/__init__.py

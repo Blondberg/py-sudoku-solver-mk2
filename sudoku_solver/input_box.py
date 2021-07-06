@@ -6,10 +6,9 @@ class InputBox:
         self.number = number
         self.active = False
         self.font = pygame.font.Font(None, 32)
-        self.color_active = pygame.Color(255, 255, 0)
-        self.color_inactive = pygame.Color(255, 0, 255)
+        self.color_active = pygame.Color(0, 0, 0)
+        self.color_inactive = pygame.Color(192, 192, 192)
         self.color = self.color_inactive
-        self.txt_surface = self.font.render(str(self.number), True, self.color)
 
 
     def handle_event(self, event):
@@ -29,10 +28,11 @@ class InputBox:
                     self.number = self.number[:-1]
                 else:
                     self.number = event.unicode if event.unicode.isnumeric() and int(event.unicode) > 0 else self.number
-                self.txt_surface = self.font.render(str(self.number), True, self.color)
 
 
     def draw(self, screen):
+        self.txt_surface = self.font.render(str(self.number), True, self.color)
+
         if self.number != '0':
             screen.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
         pygame.draw.rect(screen,self.color, self.rect, 2)
@@ -45,4 +45,7 @@ class InputBox:
 
     def get_text(self):
         return self.number
+
+
+
 
