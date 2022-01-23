@@ -14,8 +14,8 @@ class Board:
 
         self.numeric_board = [[0 for i in range(self.COL_COUNT)] for j in range(self.ROW_COUNT)]
 
-        self.board = [[InputBox((self.BOX_WIDTH + 3)*i,
-                             (self.BOX_HEIGHT + 3)*j,
+        self.board = [[InputBox((self.BOX_WIDTH)*i,
+                             (self.BOX_HEIGHT)*j,
                              self.BOX_WIDTH,
                              self.BOX_HEIGHT)
                     for i in range(self.COL_COUNT)] for j in range(self.ROW_COUNT)]
@@ -49,7 +49,7 @@ class Board:
 
         for i in range(3):
             for j in range(3):
-                pygame.draw.rect(screen, pygame.Color(0,0,0),pygame.Rect(i*159, j*159, 158, 158), 3)
+                pygame.draw.rect(screen, pygame.Color(0,0,0),pygame.Rect(i*150, j*150, 150, 150), 3)
 
 
     def handle_event(self, event):
@@ -90,4 +90,6 @@ class Board:
 
 
     def get_numeric_board(self):
+
         return self.numeric_board
+
